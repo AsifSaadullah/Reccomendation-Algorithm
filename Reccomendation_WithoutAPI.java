@@ -995,11 +995,11 @@ public class Recommendation_WithoutAPI {
 				if (weather.equalsIgnoreCase("Hot")) {
 					cologne = CologneMap.get("LeBeauParfum").getName();  
 				} else if (weather.equalsIgnoreCase("Cold")) {
-					cologne = CologneMap.get("MostWanted").getName();  // Spicy and warm for cold casual night
+					cologne = CologneMap.get("MostWanted").getName();  
 				} else if (weather.equalsIgnoreCase("Cool")) {
-					cologne = CologneMap.get("StrongerWithYou").getName();  // Sweet and aromatic for cool casual night
+					cologne = CologneMap.get("StrongerWithYou").getName();  
 				} else if (weather.equalsIgnoreCase("Warm")) {
-					cologne = CologneMap.get("Roma").getName();  // Inviting and modern for warm casual night
+					cologne = CologneMap.get("Roma").getName();  
 				}
 			}
 		}
@@ -1008,27 +1008,27 @@ public class Recommendation_WithoutAPI {
 		else if (formal.equalsIgnoreCase("Sporting/OutDoor Activites")) {
 		    if (timeOfDay.equalsIgnoreCase("Morning")) {
 		        if (weather.equalsIgnoreCase("Hot") || weather.equalsIgnoreCase("Warm")) {
-		            cologne = CologneMap.get("Greenley").getName();  // Fresh and light for hot/warm outdoor morning
+		            cologne = CologneMap.get("Greenley").getName(); 
 		        } else if (weather.equalsIgnoreCase("Cold")) {
-		            cologne = CologneMap.get("LHomme").getName();  // Light but invigorating for cold outdoor morning
+		            cologne = CologneMap.get("LHomme").getName();  
 		        } else if (weather.equalsIgnoreCase("Cool")) {
-		            cologne = CologneMap.get("Sauvage").getName();  // Versatile for cool outdoor morning
+		            cologne = CologneMap.get("Sauvage").getName();  
 		        }
 		    } else if (timeOfDay.equalsIgnoreCase("Afternoon")) {
 		        if (weather.equalsIgnoreCase("Hot") || weather.equalsIgnoreCase("Warm")) {
-		            cologne = CologneMap.get("Greenley").getName();  // Fresh and light for hot/warm outdoor afternoon
+		            cologne = CologneMap.get("Greenley").getName();  
 		        } else if (weather.equalsIgnoreCase("Cold")) {
-		            cologne = CologneMap.get("LHomme").getName();  // Invigorating for cold outdoor afternoon
+		            cologne = CologneMap.get("LHomme").getName();  
 		        } else if (weather.equalsIgnoreCase("Cool")) {
-		            cologne = CologneMap.get("Sauvage").getName();  // Versatile for cool outdoor afternoon
+		            cologne = CologneMap.get("Sauvage").getName();  
 		        }
 		    } else if (timeOfDay.equalsIgnoreCase("Night")) {
 		        if (weather.equalsIgnoreCase("Hot") || weather.equalsIgnoreCase("Warm")) {
-		            cologne = CologneMap.get("Greenley").getName();  // Fresh for hot/warm outdoor night
+		            cologne = CologneMap.get("Greenley").getName();  
 		        } else if (weather.equalsIgnoreCase("Cold")) {
-		            cologne = CologneMap.get("LHomme").getName();  // Light but invigorating for cold outdoor night
+		            cologne = CologneMap.get("LHomme").getName();  
 		        } else if (weather.equalsIgnoreCase("Cool")) {
-		            cologne = CologneMap.get("Sauvage").getName();  // Versatile for cool outdoor night
+		            cologne = CologneMap.get("Sauvage").getName();  
 		        }
 		    }
 		}
