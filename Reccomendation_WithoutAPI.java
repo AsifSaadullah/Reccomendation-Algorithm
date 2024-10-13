@@ -966,7 +966,7 @@ public class Recommendation_WithoutAPI {
 	    return "Recommended Outfit: Top - " + top + ", Pants - " + pants + ", Shoes - " + shoes + ".";  // Return the outfit recommendation
 	}
 	private static String recommendCologne(String weather, String timeOfDay, String formal, Map<String, Cologne> CologneMap) {
-		String cologne = "";  // Variable to store the recommended cologne
+		String Recommended_Cologne = "";  // Variable to store the recommended cologne
 	
 		// Daily Wear/Casual Outing recommendations
 		if (formal.equalsIgnoreCase("Daily Wear/Casual Outing")) {
