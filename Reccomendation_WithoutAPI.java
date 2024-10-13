@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Recommendation_WithoutAPI { 
-	@SuppressWarnings("null") // what does that mean
+	@SuppressWarnings("null") 
 	public static void main(String[] args) {
 		//All the variables that are used in the program.
 		String name; //name of the user.
