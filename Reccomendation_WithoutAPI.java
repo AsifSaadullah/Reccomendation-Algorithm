@@ -240,7 +240,7 @@ public class Recommendation_WithoutAPI {
 			Helper = sc.next().trim(); //User Input
 			
 			while(!Helper.equalsIgnoreCase("HELP") && !Helper.equalsIgnoreCase("NO")){ // While loop that plays incase the user enters the wrong input
-				System.out.println("Invalid Input"); //Prints this line to the console
+				System.out.println("Invalid Input"); 
 				System.out.println("Please type in either HELP or NO"); 
 				Helper = sc.next().trim(); //User input 
 				
