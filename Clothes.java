@@ -1,6 +1,4 @@
-
 import java.util.List;
-
 public class Clothes {
     private String type;  
     private String brand; 
