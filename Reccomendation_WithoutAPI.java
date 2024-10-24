@@ -321,8 +321,6 @@ public class Recommendation_Only_Methods {
                 JOptionPane.showMessageDialog(null, "Action canceled.");
                 System.exit(0); // Exit if the user pressed Cancel
             }
-
-            // Directly parse the hour input without checking if it's numeric
             hour = Integer.parseInt(input); // Parse the input to an integer
             if (hour >= 1 && hour <= 12) {
                 break; // Valid hour
@@ -335,7 +333,7 @@ public class Recommendation_Only_Methods {
         while (true) {
             String input = JOptionPane.showInputDialog(null, "Is it AM or PM?");
             if (input == null) { // Check if user pressed Cancel
-                JOptionPane.showMessageDialog(null, "Action canceled. Exiting...");
+                JOptionPane.showMessageDialog(null, "Action canceled.");
                 System.exit(0); // Exit if the user pressed Cancel
             }
             amPm = input.trim().toUpperCase();
