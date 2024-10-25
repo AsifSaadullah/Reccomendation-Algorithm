@@ -24,19 +24,19 @@ public class Recommendation_Only_Methods {
     }
     // Method to get the user name
     private static String GetUserName() {
-    	String name;
+    	String Name;
     	while (true) {
-        name = JOptionPane.showInputDialog(null, "Can you please enter your name");
-        if (name != null && name.equalsIgnoreCase("Asif")) {
+        Name = JOptionPane.showInputDialog(null, "Can you please enter your name");
+        if (Name != null && Name.equalsIgnoreCase("Asif")) {
         	break;
-        	}else if (name != null && name.equalsIgnoreCase("END")) {
+        	}else if (Name != null && Name.equalsIgnoreCase("END")) {
         		JOptionPane.showMessageDialog(null, "Guess you don't need my help...\nGoodbye!");
         		System.exit(0); // Ends the program
         		} else {
         			JOptionPane.showMessageDialog(null, "That is not the correct name.\nIf you wish to exit, please type 'END'.");
         		}
     	}
-    	return name;
+    	return Name;
     }
     // Method to create and populate the cologne 
     private static Map<String, Cologne> CreateCologneMap() {
@@ -162,12 +162,12 @@ public class Recommendation_Only_Methods {
     				Answer = Answer.trim(); 
     				if (Answer.equalsIgnoreCase("YES")) { 
     					// If the user wants to see their collection
-    					StringBuilder cologneDetails = new StringBuilder("Your Fragrances:\n\n");
-    					for (String cologneName : CologneMap.keySet()) {
-    						cologneDetails.append(CologneMap.get(cologneName).toString()).append("\n"); // Append cologne details
+    					StringBuilder CologneDetails = new StringBuilder("Your Fragrances:\n\n");
+    					for (String CologneName : CologneMap.keySet()) {
+    						CologneDetails.append(CologneMap.get(CologneName).toString()).append("\n"); // Append cologne details
     					}
     					// Create a JTextArea to display the cologne details
-    					JTextArea textArea = new JTextArea(cologneDetails.toString());
+    					JTextArea textArea = new JTextArea(CologneDetails.toString());
     					textArea.setEditable(false); // Make it non-editable
                 	    textArea.setLineWrap(true); // Wrap lines
                 	    textArea.setWrapStyleWord(true); // Wrap by words
@@ -187,8 +187,8 @@ public class Recommendation_Only_Methods {
     		String[] TimeDetails = GetTime(); 
     		String CologneFormality = GetFormalityCologne();
     		String[] WeatherDetails = GetWeatherDetails();
-    		String cologneRecommendation = RecommendCologne(WeatherDetails[0], TimeDetails[0], CologneFormality, CologneMap);
-         	JOptionPane.showMessageDialog(null, "Based on the formality, weather, and the time of the event,\n" + cologneRecommendation);
+    		String CologneRecommendation = RecommendCologne(WeatherDetails[0], TimeDetails[0], CologneFormality, CologneMap);
+         	JOptionPane.showMessageDialog(null, "Based on the formality, weather, and the time of the event,\n" + CologneRecommendation);
     	} else if (help.equalsIgnoreCase("Clothes")) {
     		JOptionPane.showMessageDialog(null, "Looks like you just need help with picking an outfit today!\nNo worries, I can help!");
     		while (true) {
@@ -226,9 +226,9 @@ public class Recommendation_Only_Methods {
        		String FormalityLevel = GetFormalityClothes();
        		String[] WeatherDetails = GetWeatherDetails();
        		// Get recommendations
-       		String clothingRecommendation = RecommendClothing(WeatherDetails[0], 0, TimeDetails[0], FormalityLevel, ClothesMap);
-       		String message = "Based on the formality, weather, and the time of the event:\n" +  "Recommended clothing: " + clothingRecommendation;
-       		JOptionPane.showMessageDialog(null, message, "Clothing Recommendation", JOptionPane.INFORMATION_MESSAGE);
+       		String ClothingRecommendation = RecommendClothing(WeatherDetails[0], 0, TimeDetails[0], FormalityLevel, ClothesMap);
+       		String Message = "Based on the formality, weather, and the time of the event:\n" +  "Recommended clothing: " + ClothingRecommendation;
+       		JOptionPane.showMessageDialog(null, Message, "Clothing Recommendation", JOptionPane.INFORMATION_MESSAGE);
        	} else if (help.equalsIgnoreCase("Both")) {
        		JOptionPane.showMessageDialog(null,"Seems like you need help with both a outfit and a fragrance\n i can help with that!"); 
        		// Display wardrobe
@@ -287,28 +287,28 @@ public class Recommendation_Only_Methods {
         			String CologneFormality = GetFormalityCologne();
         			String FormalityLevel = GetFormalityClothes();
         			String[] WeatherDetails = GetWeatherDetails();
-        			String cologneRecommendation = RecommendCologne(WeatherDetails[0], TimeDetails[0], CologneFormality, CologneMap);
-        			String clothingRecommendation = RecommendClothing(WeatherDetails[0], 0, TimeDetails[0], FormalityLevel, ClothesMap);
-                 	JOptionPane.showMessageDialog(null, "Based on the formality, weather, and the time of the event,\n" + cologneRecommendation);
-                 	JOptionPane.showMessageDialog(null, "Based on the formality, weather, and the time of the event,\n" + clothingRecommendation);
+        			String CologneRecommendation = RecommendCologne(WeatherDetails[0], TimeDetails[0], CologneFormality, CologneMap);
+        			String ClothingRecommendation = RecommendClothing(WeatherDetails[0], 0, TimeDetails[0], FormalityLevel, ClothesMap);
+                 	JOptionPane.showMessageDialog(null, "Based on the formality, weather, and the time of the event,\n" + CologneRecommendation);
+                 	JOptionPane.showMessageDialog(null, "Based on the formality, weather, and the time of the event,\n" + ClothingRecommendation);
        	}
 }
     //Get the Details for the time.
     private static String[] GetTime() {
-        String timeOfDay;
-        String amPm;
-        int hour = 0; // Initialize hour
+        String TimeOfDay;
+        String AmPm;
+        int Hour = 0; // Initialize hour
 
         // Loop until the user enters a valid time of day
         while (true) {
-            String input = JOptionPane.showInputDialog(null, "What time of day will this event be?\n" +
+            String Input = JOptionPane.showInputDialog(null, "What time of day will this event be?\n" +
                     "The options are: Morning (4am-11am), Afternoon (12pm-6pm), Night (7pm-3am)");
-            if (input == null) { // Check if user pressed Cancel
+            if (Input == null) { // Check if user pressed Cancel
                 JOptionPane.showMessageDialog(null, "Action canceled.");
                 System.exit(0); // Exit if the user pressed Cancel
             }
-            timeOfDay = input.trim();
-            if (timeOfDay.equalsIgnoreCase("Morning") || timeOfDay.equalsIgnoreCase("Afternoon") || timeOfDay.equalsIgnoreCase("Night")) {
+            TimeOfDay = Input.trim();
+            if (TimeOfDay.equalsIgnoreCase("Morning") || TimeOfDay.equalsIgnoreCase("Afternoon") || TimeOfDay.equalsIgnoreCase("Night")) {
                 break; 
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid input. Please enter Morning, Afternoon, or Night.");
@@ -316,13 +316,15 @@ public class Recommendation_Only_Methods {
         }
         // Loop until the user enters a valid hour
         while (true) {
-            String input = JOptionPane.showInputDialog(null, "Enter the specific hour (1-12) for the event:");
-            if (input == null) { // Check if user pressed Cancel
+            String Input = JOptionPane.showInputDialog(null, "Enter the specific hour (1-12) for the event:");
+            if (Input == null) { // Check if user pressed Cancel
                 JOptionPane.showMessageDialog(null, "Action canceled.");
                 System.exit(0); // Exit if the user pressed Cancel
             }
-            hour = Integer.parseInt(input); // Parse the input to an integer
-            if (hour >= 1 && hour <= 12) {
+
+            // Directly parse the hour input without checking if it's numeric
+            Hour = Integer.parseInt(Input); // Parse the input to an integer
+            if (Hour >= 1 && Hour <= 12) {
                 break; // Valid hour
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid input. Please enter an hour between 1 and 12.");
@@ -331,13 +333,13 @@ public class Recommendation_Only_Methods {
 
         // Loop until the user enters a valid AM or PM
         while (true) {
-            String input = JOptionPane.showInputDialog(null, "Is it AM or PM?");
-            if (input == null) { // Check if user pressed Cancel
-                JOptionPane.showMessageDialog(null, "Action canceled.");
+            String Input = JOptionPane.showInputDialog(null, "Is it AM or PM?");
+            if (Input == null) { // Check if user pressed Cancel
+                JOptionPane.showMessageDialog(null, "Action canceled. Exiting...");
                 System.exit(0); // Exit if the user pressed Cancel
             }
-            amPm = input.trim().toUpperCase();
-            if (amPm.equals("AM") || amPm.equals("PM")) {
+            AmPm = Input.trim().toUpperCase();
+            if (AmPm.equals("AM") || AmPm.equals("PM")) {
                 break; 
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid input. Please enter AM or PM.");
@@ -345,34 +347,34 @@ public class Recommendation_Only_Methods {
         }
         // Validate the time based on the time of day
         while (true) {
-            boolean isValid = true; 
-            if (timeOfDay.equalsIgnoreCase("Morning")) {
-                if (amPm.equals("PM") || hour < 4 || hour > 11) {
-                    isValid = false; // Set flag to false if invalid
+            boolean IsValid = true; 
+            if (TimeOfDay.equalsIgnoreCase("Morning")) {
+                if (AmPm.equals("PM") || Hour < 4 || Hour > 11) {
+                    IsValid = false; // Set flag to false if invalid
                     JOptionPane.showMessageDialog(null, "Invalid input. Morning is between 4am and 11am. Please try again.");
                 }
-            } else if (timeOfDay.equalsIgnoreCase("Afternoon")) {
-                if (amPm.equals("AM") || hour < 12 && hour > 6) {
-                    isValid = false; // Set flag to false if invalid
+            } else if (TimeOfDay.equalsIgnoreCase("Afternoon")) {
+                if (AmPm.equals("AM") || Hour < 12 && Hour > 6) {
+                    IsValid = false; // Set flag to false if invalid
                     JOptionPane.showMessageDialog(null, "Invalid input. Afternoon is between 12pm and 6pm. Please try again.");
                 }
-            } else if (timeOfDay.equalsIgnoreCase("Night")) {
-                if ((amPm.equals("AM") && hour >= 4) || (amPm.equals("PM") && hour < 7)) {
-                    isValid = false; // Set flag to false if invalid
+            } else if (TimeOfDay.equalsIgnoreCase("Night")) {
+                if ((AmPm.equals("AM") && Hour >= 4) || (AmPm.equals("PM") && Hour < 7)) {
+                    IsValid = false; // Set flag to false if invalid
                     JOptionPane.showMessageDialog(null, "Invalid input. Night is between 7pm and 3am. Please try again.");
                 }
             }
-            if (isValid) {
+            if (IsValid) {
                 break;
             }
             while (true) {
-                String inputHour = JOptionPane.showInputDialog(null, "Enter the specific hour (1-12) for the event:");
-                if (inputHour == null) { // Check if user pressed Cancel
+                String InputHour = JOptionPane.showInputDialog(null, "Enter the specific hour (1-12) for the event:");
+                if (InputHour == null) { // Check if user pressed Cancel
                     JOptionPane.showMessageDialog(null, "Action canceled.");
                     System.exit(0); // Exit if the user pressed Cancel
                 }
-                hour = Integer.parseInt(inputHour); // Parse the input to an integer
-                if (hour >= 1 && hour <= 12) {
+                Hour = Integer.parseInt(InputHour); // Parse the input to an integer
+                if (Hour >= 1 && Hour <= 12) {
                     break; // Valid hour
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid input. Please enter an hour between 1 and 12.");
@@ -380,20 +382,20 @@ public class Recommendation_Only_Methods {
             }
 
             while (true) {
-                String inputAmPm = JOptionPane.showInputDialog(null, "Is it AM or PM?");
-                if (inputAmPm == null) { // Check if user pressed Cancel
+                String InputAmPm = JOptionPane.showInputDialog(null, "Is it AM or PM?");
+                if (InputAmPm == null) { // Check if user pressed Cancel
                     JOptionPane.showMessageDialog(null, "Action canceled.");
                     System.exit(0); // Exit if the user pressed Cancel
                 }
-                amPm = inputAmPm.trim().toUpperCase();
-                if (amPm.equals("AM") || amPm.equals("PM")) {
+                AmPm = InputAmPm.trim().toUpperCase();
+                if (AmPm.equals("AM") || AmPm.equals("PM")) {
                     break; // Valid AM/PM
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid input. Please enter AM or PM.");
                 }
             }
         }
-        return new String[] { timeOfDay, String.valueOf(hour), amPm };
+        return new String[] { TimeOfDay, String.valueOf(Hour), AmPm };
     }
     //Method to Get Cologne Formality.
     private static String GetFormalityCologne(){
