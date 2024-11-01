@@ -1,6 +1,5 @@
 #include <iostream>
 using namespace std;
-
 bool checker(int q[], int c) {
     // This is the checker function to make sure that the placement of the number is ok.
     for (int i = 0; i < c; i++) {
@@ -11,8 +10,6 @@ bool checker(int q[], int c) {
     return true; 
     //if there are no conflits found within the number placement is will return true.
 }
-
-
 void print(int q[]) { 
     //if a solution is found it will pass through this function to print it.
     static int sol = 1; 
@@ -23,7 +20,6 @@ void print(int q[]) {
     cout << " " << q[3] << q[6] << endl; 
     cout << endl; 
 }
-
 int main() {
     int q[8] = {0}; 
     int c = 0; 
