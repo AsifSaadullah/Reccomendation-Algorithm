@@ -330,7 +330,6 @@ public class Recommendation_Only_Methods {
                 JOptionPane.showMessageDialog(null, "Invalid input. Please enter an hour between 1 and 12.");
             }
         }
-
         // Loop until the user enters a valid AM or PM
         while (true) {
             String Input = JOptionPane.showInputDialog(null, "Is it AM or PM?");
@@ -401,7 +400,6 @@ public class Recommendation_Only_Methods {
     private static String GetFormalityCologne(){
     	String Helper;
     	String CologneForm = "";
-    	int Cologne;    
     	while (true) {
     		String input = JOptionPane.showInputDialog(null, "What kind of formality will this event be?\n" + "If you are confused on formality level, please type in HELP.\n" +"If not, type in NO.");
     		Helper = input != null ? input.trim() : "";
