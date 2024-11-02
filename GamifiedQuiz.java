@@ -74,8 +74,8 @@ public class GamifiedQuiz {
         // Answers corresponding to math questions by difficulty
         Answers.put("math", Map.of(
             "easy", List.of("10"),
-            "medium", List.of("4"),
-            "hard", List.of("±2")
+            "medium", List.of("3.5"),
+            "hard", List.of("2")
         ));
     }
     // Start quiz 
