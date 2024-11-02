@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cmath>
 using namespace std;
-
 bool test_function(int q[], int c) {
     for (int i = 0; i < c; i++) {
         if ((q[i] == q[c]) || (c - i == abs(q[c] - q[i]))) {

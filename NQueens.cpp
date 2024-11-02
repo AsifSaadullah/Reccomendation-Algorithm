@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cmath>
 using namespace std;
-
 bool test_function(int q[], int c) { // same tester function as the 1d array version
     for (int i = 0; i < c; i++) {
         if ((q[i] == q[c]) || (c - i == abs(q[c] - q[i]))) {
@@ -10,7 +9,6 @@ bool test_function(int q[], int c) { // same tester function as the 1d array ver
     }
     return true; 
 }
-
 int n_queens(int n) {
    // Dynamically declare an array of size n and initialize the first element to 0.
     int* q = new int[n];
@@ -42,7 +40,6 @@ int n_queens(int n) {
     delete []q; // This will delete the array 
     return sum; // returns all the solutions once they have been found
 }
-
 int main() {
    int queens;
    cout << "Enter a positive integer: ";
