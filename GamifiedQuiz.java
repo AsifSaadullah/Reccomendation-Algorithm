@@ -5,11 +5,11 @@ import java.time.LocalDate;
 
 public class GamifiedQuiz {
     // Maps to hold questions and answers for each topic and difficulty level
-    static Map<String, Map<String, List<String>>> questions = new HashMap<>();
-    static Map<String, Map<String, List<String>>> answers = new HashMap<>();
+    static Map<String, Map<String, List<String>>> Questions = new HashMap<>();
+    static Map<String, Map<String, List<String>>> Answers = new HashMap<>();
     
     // UserData object to track user progress, points, and badges
-    static UserData userData;
+    static UserData UserData;
 
     public static void main(String[] args) {
         InitializeQuestionsAndAnswers();  // Initialize all questions and answers
@@ -19,8 +19,8 @@ public class GamifiedQuiz {
             String[] Options = {"Take a Quiz", "View Stats and Achievements", "Daily Challenge", "Reset Progress", "Exit"};
             
             int Choice = JOptionPane.showOptionDialog(null,
-                    "Points: " + userData.points + ", Streak: " + userData.streak +
-                            "\nBadges: " + (userData.badges.isEmpty() ? "None" : String.join(", ", userData.badges)),
+                    "Points: " + UserData.points + ", Streak: " + UserData.streak +
+                            "\nBadges: " + (UserData.badges.isEmpty() ? "None" : String.join(", ", UserData.badges)),
                     "Welcome to Gamified Quiz ",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Options, Options[0]);
             if (Choice == 0) {
@@ -42,37 +42,37 @@ public class GamifiedQuiz {
     }
     static void InitializeQuestionsAndAnswers() {
         // Populate questions for reading topic at different difficulties
-        questions.put("reading", Map.of(
+        Questions.put("reading", Map.of(
             "easy", List.of("What does the word 'benevolent' mean in this context: 'She was known for her benevolent nature.'?"),
             "medium", List.of("What does the author imply by stating 'it was a fleeting moment of joy'?"),
             "hard", List.of("Identify the tone of a passage discussing climate change's impact on coral reefs.")
         ));
         // Populate questions for writing topic at different difficulties
-        questions.put("writing", Map.of(
+        Questions.put("writing", Map.of(
             "easy", List.of("Choose the correct form: 'They (is/are) going to the concert.'"),
             "medium", List.of("In the sentence 'The group of students (was/were) ready,' which is correct?"),
             "hard", List.of("What is the purpose of the semicolon in the sentence: 'She enjoys reading; however, she also likes hiking'?")
         ));
         // Populate questions for math topic at different difficulties
-        questions.put("math", Map.of(
+        Questions.put("math", Map.of(
             "easy", List.of("What is 7 + 3?"),
             "medium", List.of("Solve for x: 4x + 2 = 18."),
             "hard", List.of("If 2x^2 = 8, what is x?")
         ));
         // Answers corresponding to reading questions by difficulty
-        answers.put("reading", Map.of(
+        Answers.put("reading", Map.of(
             "easy", List.of("Kind"),
             "medium", List.of("Brief happiness"),
             "hard", List.of("Concerned")
         ));
         // Answers corresponding to writing questions by difficulty
-        answers.put("writing", Map.of(
+        Answers.put("writing", Map.of(
             "easy", List.of("are"),
             "medium", List.of("was"),
             "hard", List.of("To connect clauses")
         ));
         // Answers corresponding to math questions by difficulty
-        answers.put("math", Map.of(
+        Answers.put("math", Map.of(
             "easy", List.of("10"),
             "medium", List.of("4"),
             "hard", List.of("±2")
@@ -97,9 +97,9 @@ public class GamifiedQuiz {
             Difficulty = Difficulty.trim().toLowerCase();
             
             // Check if chosen topic and difficulty exist
-            if (questions.containsKey(Topic) && questions.get(Topic).containsKey(Difficulty)) {
-                List<String> QuestionSet = questions.get(Topic).get(Difficulty);
-                List<String> AnswerSet = answers.get(Topic).get(Difficulty);
+            if (Questions.containsKey(Topic) && Questions.get(Topic).containsKey(Difficulty)) {
+                List<String> QuestionSet = Questions.get(Topic).get(Difficulty);
+                List<String> AnswerSet = Answers.get(Topic).get(Difficulty);
 
                 //Make sure question and answer sets are not empty
                 if (QuestionSet == null || AnswerSet == null || QuestionSet.isEmpty() || AnswerSet.isEmpty()) {
@@ -117,7 +117,7 @@ public class GamifiedQuiz {
                     UpdatePointsAndStreak(Difficulty);  // Update points and streak
                 } else if (UserAnswer != null) {
                     JOptionPane.showMessageDialog(null, "Incorrect. The correct answer was: " + AnswerSet.get(QuestionIndex));
-                    userData.streak = 0;  // Reset streak if the answer is wrong
+                    UserData.streak = 0;  // Reset streak if the answer is wrong
                 } else {
                     JOptionPane.showMessageDialog(null, "Quiz canceled.");
                 }
@@ -133,10 +133,10 @@ public class GamifiedQuiz {
     // Update user points and streak based on difficulty level
     static void UpdatePointsAndStreak(String difficulty) {
         Map<String, Integer> pointsAward = Map.of("easy", 10, "medium", 20, "hard", 30);  // Points for each difficulty
-        userData.points += pointsAward.get(difficulty);  // Add points to user's total
-        userData.streak += 1;  // Increment streak count
+        UserData.points += pointsAward.get(difficulty);  // Add points to user's total
+        UserData.streak += 1;  // Increment streak count
 
-        JOptionPane.showMessageDialog(null, "Points: " + userData.points + ", Streak: " + userData.streak);
+        JOptionPane.showMessageDialog(null, "Points: " + UserData.points + ", Streak: " + UserData.streak);
     }
     // List of all badges that can be earned
     static List<String> AllBadges = List.of(
@@ -158,7 +158,7 @@ public class GamifiedQuiz {
         List<String> LockedBadges = new ArrayList<>();
 
         for (String Badge : AllBadges) {
-            if (userData.badges.contains(Badge)) {
+            if (UserData.badges.contains(Badge)) {
                 UnlockedBadges.add(Badge);
             } else {
                 LockedBadges.add(Badge);
@@ -167,7 +167,7 @@ public class GamifiedQuiz {
         String UnlockedBadgesText = UnlockedBadges.isEmpty() ? "None" : String.join("\n", UnlockedBadges);
         String LockedBadgesText = LockedBadges.isEmpty() ? "None" : String.join("\n", LockedBadges);
         // Display points, streak, and badge status with each badge on a new line
-        String StatsMessage = "Points: " + userData.points + "\nStreak: " + userData.streak +
+        String StatsMessage = "Points: " + UserData.points + "\nStreak: " + UserData.streak +
                 "\n\nUnlocked Badges:\n" + UnlockedBadgesText +
                 "\n\nLocked Badges:\n" + LockedBadgesText;
 
@@ -180,12 +180,12 @@ public class GamifiedQuiz {
             String Today = LocalDate.now().toString();
 
             // Check if today's challenge has already been completed by comparing today's date with the last date completed
-            if (Today.equals(userData.lastDaily)) {
+            if (Today.equals(UserData.lastDaily)) {
                 // If the challenge was completed today, tell the user and exit
                 JOptionPane.showMessageDialog(null, "You've already completed today's challenge!");
             } else {
                 // Update the last daily challenge date to today
-                userData.lastDaily = Today;
+                UserData.lastDaily = Today;
 
                 // Randomly select a difficulty level from easy, medium, or hard
                 String Difficulty = List.of("easy", "medium", "hard").get(new Random().nextInt(3));
@@ -194,10 +194,10 @@ public class GamifiedQuiz {
                 String Topic = List.of("reading", "writing", "math").get(new Random().nextInt(3));
 
                 // Retrieve the list of questions for the topic and difficulty
-                List<String> QuestionSet = questions.get(Topic).get(Difficulty);
+                List<String> QuestionSet = Questions.get(Topic).get(Difficulty);
 
                 // Retrieve the list of answers for the topic and difficulty
-                List<String> AnswerSet = answers.get(Topic).get(Difficulty);
+                List<String> AnswerSet = Answers.get(Topic).get(Difficulty);
 
                 // Select a random index for the question and answer within the topic and difficulty
                 int QuestionIndex = new Random().nextInt(QuestionSet.size());
@@ -209,12 +209,12 @@ public class GamifiedQuiz {
                 if (UserAnswer != null && UserAnswer.equalsIgnoreCase(AnswerSet.get(QuestionIndex))) {
                     // If the answer is correct, award 50 points and add points to daily streak
                     JOptionPane.showMessageDialog(null, "Correct! You've earned 50 points!");
-                    userData.points += 50;
-                    userData.dailyStreak += 1;
+                    UserData.points += 50;
+                    UserData.dailyStreak += 1;
                 } else {
                     // If the answer is incorrect,reset the daily streak
                     JOptionPane.showMessageDialog(null, "Incorrect. The correct answer was: " + AnswerSet.get(QuestionIndex));
-                    userData.dailyStreak = 0;
+                    UserData.dailyStreak = 0;
                 }
 
                 // Save the updated user data 
@@ -234,7 +234,7 @@ public class GamifiedQuiz {
 
         if (Confirmation == JOptionPane.YES_OPTION) {
             // Create a new UserData object, effectively clearing all previous data
-            userData = new UserData();  
+            UserData = new UserData();  
             SaveUserData();  
             JOptionPane.showMessageDialog(null, "Your progress has been reset.");
         }
@@ -242,7 +242,7 @@ public class GamifiedQuiz {
     // Save user data to a file for persistence
     static void SaveUserData() {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("userData.ser"))) {
-            out.writeObject(userData);  
+            out.writeObject(UserData);  
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error saving user data.");
         }
@@ -252,15 +252,15 @@ public class GamifiedQuiz {
         // Attempt to load the user data from the file
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("userData.ser"))) {
             // Read the UserData object from the file and assign it to userData
-            userData = (UserData) in.readObject();  
+            UserData = (UserData) in.readObject();  
         } catch (FileNotFoundException e) {  
             // If the file does not exist, initialize userData with a new UserData object
-            userData = new UserData();  
+            UserData = new UserData();  
         } catch (IOException | ClassNotFoundException e) {
             // Show an error message if there's a problem loading the data
             JOptionPane.showMessageDialog(null, "Error loading user data.");
             //Initialize userData with a new UserData object in case of an error so the program can still run
-            userData = new UserData();  
+            UserData = new UserData();  
         }
     }
 }
