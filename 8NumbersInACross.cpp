@@ -1,4 +1,3 @@
-#include <iostream>
 using namespace std;
 
 bool checker(int q[], int c) {
