@@ -138,18 +138,27 @@ public class Recommendation_Only_Methods {
         return ClothesMap;
     }
     // Method to get help choice from the user
-    private static String getHelpChoice() {
-    	String Help;
-    	while (true) {
-    		Help = JOptionPane.showInputDialog(null, "Please type in 'Cologne', 'Clothes', or 'Both':");
-    		if (Help != null && (Help.equalsIgnoreCase("Cologne") || Help.equalsIgnoreCase("Clothes") || Help.equalsIgnoreCase("Both"))) {
-    			break;
-    			} else {
-    				JOptionPane.showMessageDialog(null, "Invalid Input, please type in 'Cologne','Clothes', or 'Both':");
-    			}
-    	}
-    	return Help;
-    }
+	private static String getHelpChoice() {
+		// Define the options for the user to select
+		String[] options = {"Cologne", "Clothes", "Both"};
+		// Display the option dialog with buttons
+		int choice = JOptionPane.showOptionDialog(null,
+		  "Please choose an option:", 
+		  "Help Choice", 
+		  JOptionPane.DEFAULT_OPTION, 
+		  JOptionPane.INFORMATION_MESSAGE,
+		  null, 
+		  options, 
+		  options[0]);
+		// Check if the user canceled the action
+		if (choice == JOptionPane.CLOSED_OPTION) {
+			return null;  // User pressed cancel or closed the dialog
+		}
+	
+		// Return the selected option
+		return options[choice];
+	}
+	
     //Method to process the user request
     private static void UserRequest(String help, Map<String, Cologne> CologneMap, Map<String, Clothes> ClothesMap) {
     	String Answer = ""; 
