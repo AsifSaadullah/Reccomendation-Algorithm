@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-public class Recommendation_Only_Methods {
+public class Recommendation_Only_Methods { //fix time
     public static void main(String[] args) { 
 		String Name; //name of the user.
 		String Help = null; // What the user wants help with
@@ -17,7 +17,7 @@ public class Recommendation_Only_Methods {
         	Map<String, Cologne> CologneMap = CreateCologneMap();
         	Map<String, Clothes> ClothesMap = CreateClothesMap();    	
         	JOptionPane.showMessageDialog(frame, "Welcome Back, Sir!\nHow can I help you today?\nWill it be Cologne Recommendations or Clothes Recommendations?\nOr maybe both?");
-        	Help = getHelpChoice();
+        	Help = GetHelpChoice();
         	UserRequest(Help, CologneMap, ClothesMap);
         }
     }
@@ -138,272 +138,311 @@ public class Recommendation_Only_Methods {
         return ClothesMap;
     }
     // Method to get help choice from the user
-	private static String getHelpChoice() {
+	private static String GetHelpChoice() {
 		// Define the options for the user to select
 		String[] options = {"Cologne", "Clothes", "Both"};
 		// Display the option dialog with buttons
-		int choice = JOptionPane.showOptionDialog(null,
-		  "Please choose an option:", 
-		  "Help Choice", 
+		int choice = JOptionPane.showOptionDialog(null,"Please choose an option:", "Help Choice", 
 		  JOptionPane.DEFAULT_OPTION, 
 		  JOptionPane.INFORMATION_MESSAGE,
-		  null, 
-		  options, 
-		  options[0]);
+		  null,  options,  options[0]);
 		// Check if the user canceled the action
 		if (choice == JOptionPane.CLOSED_OPTION) {
 			return null;  // User pressed cancel or closed the dialog
 		}
-	
 		// Return the selected option
 		return options[choice];
 	}
+	//Process User Request 
+	private static void UserRequest(String help, Map<String, Cologne> CologneMap, Map<String, Clothes> ClothesMap) {
+		String Answer = ""; 
+		if (help.equalsIgnoreCase("Cologne")) {
+			JOptionPane.showMessageDialog(null, "Looks like you just need help with picking a fragrance today!\nNo worries, I can help!");
+			while (true) {
+				// Use showOptionDialog to make a clickable option instead of text input
+				int option = JOptionPane.showOptionDialog(null, 
+						"Before we start, would you like to see your collection of colognes?", 
+						"View Cologne Collection", 
+						JOptionPane.YES_NO_OPTION, 
+						JOptionPane.QUESTION_MESSAGE, 
+						null, 
+						new Object[] {"Yes", "No"}, 
+						"No");
 	
-    //Method to process the user request
-    private static void UserRequest(String help, Map<String, Cologne> CologneMap, Map<String, Clothes> ClothesMap) {
-    	String Answer = ""; 
-    	if (help.equalsIgnoreCase("Cologne")) {
-    		JOptionPane.showMessageDialog(null, "Looks like you just need help with picking a fragrance today!\nNo worries, I can help!");
-    		while (true) {
-    			Answer = JOptionPane.showInputDialog(null, "Before we start, would you like to see your collection of colognes? (Yes or No)");
-    			if (Answer != null) { 
-    				Answer = Answer.trim(); 
-    				if (Answer.equalsIgnoreCase("YES")) { 
-    					// If the user wants to see their collection
-    					StringBuilder CologneDetails = new StringBuilder("Your Fragrances:\n\n");
-    					for (String CologneName : CologneMap.keySet()) {
-    						CologneDetails.append(CologneMap.get(CologneName).toString()).append("\n"); // Append cologne details
-    					}
-    					// Create a JTextArea to display the cologne details
-    					JTextArea textArea = new JTextArea(CologneDetails.toString());
-    					textArea.setEditable(false); // Make it non-editable
-                	    textArea.setLineWrap(true); // Wrap lines
-                	    textArea.setWrapStyleWord(true); // Wrap by words
-                	    // Create a JScrollPane to allow scrolling
-                	    JScrollPane scrollPane = new JScrollPane(textArea);
-                	    scrollPane.setPreferredSize(new Dimension(300, 200)); // Set preferred size for the scroll pane
-                	    // Show the scroll pane in a JOptionPane
-                	    JOptionPane.showMessageDialog(null, scrollPane, "Cologne Collection", JOptionPane.INFORMATION_MESSAGE);
-                	    break; // Exit the loop after displaying the collection
-                	    } else if (Answer.equalsIgnoreCase("NO")) {
-    					// If the user doesnt to see their collection
-    					JOptionPane.showMessageDialog(null, "Ok, let's continue!");
-    					break; // Exit the loop
-    				}
-    			}
-    		}
-    		String[] TimeDetails = GetTime(); 
-    		String CologneFormality = GetFormalityCologne();
-    		String[] WeatherDetails = GetWeatherDetails();
-    		String CologneRecommendation = RecommendCologne(WeatherDetails[0], TimeDetails[0], CologneFormality, CologneMap);
-         	JOptionPane.showMessageDialog(null, "Based on the formality, weather, and the time of the event,\n" + CologneRecommendation);
-    	} else if (help.equalsIgnoreCase("Clothes")) {
-    		JOptionPane.showMessageDialog(null, "Looks like you just need help with picking an outfit today!\nNo worries, I can help!");
-    		while (true) {
-    			Answer = JOptionPane.showInputDialog(null, "Before we start, would you like to see your wardrobe? (Yes or No)");
-    			if (Answer != null) {
-    				Answer = Answer.trim(); 
-    				if (Answer.equalsIgnoreCase("YES")) {
-    					// If the user wants to see their wardrobe
-    					StringBuilder wardrobeDetails = new StringBuilder("Your Wardrobe:\n\n");
-    					for (Map.Entry<String, Clothes> entry : ClothesMap.entrySet()) {
-    						wardrobeDetails.append(entry.getKey()).append(":\n").append(entry.getValue().toString()).append("\n"); // Append clothes details
-    						}
-    					// Create a JTextArea to display the wardrobe details
-    					JTextArea textArea = new JTextArea(wardrobeDetails.toString());
-    					textArea.setEditable(false); // Make it non-editable
-    					textArea.setLineWrap(true); // Wrap lines
-    					textArea.setWrapStyleWord(true); // Wrap by words
-    			        // Create a JScrollPane to allow scrolling
-    					JScrollPane scrollPane = new JScrollPane(textArea);
-    					scrollPane.setPreferredSize(new Dimension(300, 200)); // Set preferred size for the scroll pane
-    			        // Show the scroll pane in a JOptionPane
-           	            JOptionPane.showMessageDialog(null, scrollPane, "Wardrobe Collection", JOptionPane.INFORMATION_MESSAGE);
-           	            break; // Exit the loop after displaying the collection
-           	            } else if (Answer.equalsIgnoreCase("NO")) {
-           	            	// If the user does not want to see their wardrobe
-           	            	JOptionPane.showMessageDialog(null, "Ok, let's continue!");
-           	            	break; // Exit the loop
-           	            	} else {
-           	            		JOptionPane.showMessageDialog(null, "Invalid Input! Please type 'Yes' or 'No'.");
-           	            	}
-    			}
-    		}
-    		String[] TimeDetails = GetTime();
-       		JOptionPane.showMessageDialog(null, "Thank you! Your event is at " + TimeDetails[1] + " " + TimeDetails[2] + " in the " + TimeDetails[0] + ".");
-       		String FormalityLevel = GetFormalityClothes();
-       		String[] WeatherDetails = GetWeatherDetails();
-       		// Get recommendations
-       		String ClothingRecommendation = RecommendClothing(WeatherDetails[0], 0, TimeDetails[0], FormalityLevel, ClothesMap);
-       		String Message = "Based on the formality, weather, and the time of the event:\n" +  "Recommended clothing: " + ClothingRecommendation;
-       		JOptionPane.showMessageDialog(null, Message, "Clothing Recommendation", JOptionPane.INFORMATION_MESSAGE);
-       	} else if (help.equalsIgnoreCase("Both")) {
-       		JOptionPane.showMessageDialog(null,"Seems like you need help with both a outfit and a fragrance\n i can help with that!"); 
-       		// Display wardrobe
-       		while (true) {
-       			Answer = JOptionPane.showInputDialog(null, "Before we start would you like to see your wardrobe?\nIncluding your fragrances");
-       		    if (Answer == null) {
-       		        JOptionPane.showMessageDialog(null, "Action canceled.");
-       		        System.exit(0); 
-       		    }
-       		    Answer = Answer.trim(); 
-       		    if (Answer.equalsIgnoreCase("YES")) {
-       		        // If the user wants to see their collection
-       		        StringBuilder cologneDetails = new StringBuilder("Your Fragrances:\n\n");
-       		        for (String cologneName : CologneMap.keySet()) {
-       		            cologneDetails.append(CologneMap.get(cologneName).toString()).append("\n"); // Append cologne details
-       		        }
-       		        // Create a JTextArea to display the cologne details
-       		        JTextArea textArea = new JTextArea(cologneDetails.toString());
-       		        textArea.setEditable(false); // Make it non-editable
-       		        textArea.setLineWrap(true); // Wrap lines
-       		        textArea.setWrapStyleWord(true); // Wrap by words
-       		        // Create a JScrollPane to allow scrolling
-       		        JScrollPane scrollPane = new JScrollPane(textArea);
-       		        scrollPane.setPreferredSize(new Dimension(300, 200)); // Set preferred size for the scroll pane
-       		        // Show the scroll pane in a JOptionPane
-       		        JOptionPane.showMessageDialog(null, scrollPane, "Cologne Collection", JOptionPane.INFORMATION_MESSAGE);
-       		        break; // Exit the loop after displaying the collection
-       		    } else if (Answer.equalsIgnoreCase("NO")) {
-       		        JOptionPane.showMessageDialog(null, "Ok, let's continue!");
-       		        break; 
-       		    } else {
-       		    	JOptionPane.showMessageDialog(null, "Invalid Input! Please type 'Yes' or 'No'.");
-       		    }
-       		}
-       		if (Answer.equalsIgnoreCase("YES")) {
-       		    // Display wardrobe collection
-       		    StringBuilder wardrobeDetails = new StringBuilder("Your Wardrobe:\n\n");
-       		    for (Map.Entry<String, Clothes> entry : ClothesMap.entrySet()) {
-       		        wardrobeDetails.append(entry.getKey()).append(":\n").append(entry.getValue().toString()).append("\n"); // Append clothes details
-       		    }
-       		    // Create a JTextArea to display the wardrobe details
-       		    JTextArea wardrobeTextArea = new JTextArea(wardrobeDetails.toString());
-       		    wardrobeTextArea.setEditable(false); // Make it non-editable
-       		    wardrobeTextArea.setLineWrap(true); // Wrap lines
-       		    wardrobeTextArea.setWrapStyleWord(true); // Wrap by words
-       		    // Create a JScrollPane to allow scrolling
-       		    JScrollPane wardrobeScrollPane = new JScrollPane(wardrobeTextArea);
-       		    wardrobeScrollPane.setPreferredSize(new Dimension(300, 200)); // Set preferred size for the scroll pane
-       		    // Show the scroll pane in a JOptionPane
-       		    JOptionPane.showMessageDialog(null, wardrobeScrollPane, "Wardrobe Collection", JOptionPane.INFORMATION_MESSAGE);
-       		}
-
-        			String[] TimeDetails = GetTime();
-        			JOptionPane.showMessageDialog(null, "Thank you! Your event is at " + TimeDetails[1] + " " + TimeDetails[2] + " in the " + TimeDetails[0] + ".");
-        			
-        			String CologneFormality = GetFormalityCologne();
-        			String FormalityLevel = GetFormalityClothes();
-        			String[] WeatherDetails = GetWeatherDetails();
-        			String CologneRecommendation = RecommendCologne(WeatherDetails[0], TimeDetails[0], CologneFormality, CologneMap);
-        			String ClothingRecommendation = RecommendClothing(WeatherDetails[0], 0, TimeDetails[0], FormalityLevel, ClothesMap);
-                 	JOptionPane.showMessageDialog(null, "Based on the formality, weather, and the time of the event,\n" + CologneRecommendation);
-                 	JOptionPane.showMessageDialog(null, "Based on the formality, weather, and the time of the event,\n" + ClothingRecommendation);
-       	}
-}
-    //Get the Details for the time.
-    private static String[] GetTime() {
-        String TimeOfDay;
-        String AmPm;
-        int Hour = 0; // Initialize hour
-
-        // Loop until the user enters a valid time of day
-        while (true) {
-            String Input = JOptionPane.showInputDialog(null, "What time of day will this event be?\n" +
-                    "The options are: Morning (4am-11am), Afternoon (12pm-6pm), Night (7pm-3am)");
-            if (Input == null) { // Check if user pressed Cancel
-                JOptionPane.showMessageDialog(null, "Action canceled.");
-                System.exit(0); // Exit if the user pressed Cancel
-            }
-            TimeOfDay = Input.trim();
-            if (TimeOfDay.equalsIgnoreCase("Morning") || TimeOfDay.equalsIgnoreCase("Afternoon") || TimeOfDay.equalsIgnoreCase("Night")) {
-                break; 
-            } else {
-                JOptionPane.showMessageDialog(null, "Invalid input. Please enter Morning, Afternoon, or Night.");
-            }
-        }
-        // Loop until the user enters a valid hour
-        while (true) {
-            String Input = JOptionPane.showInputDialog(null, "Enter the specific hour (1-12) for the event:");
-            if (Input == null) { // Check if user pressed Cancel
-                JOptionPane.showMessageDialog(null, "Action canceled.");
-                System.exit(0); // Exit if the user pressed Cancel
-            }
-
-            // Directly parse the hour input without checking if it's numeric
-            Hour = Integer.parseInt(Input); // Parse the input to an integer
-            if (Hour >= 1 && Hour <= 12) {
-                break; // Valid hour
-            } else {
-                JOptionPane.showMessageDialog(null, "Invalid input. Please enter an hour between 1 and 12.");
-            }
-        }
-        // Loop until the user enters a valid AM or PM
-        while (true) {
-            String Input = JOptionPane.showInputDialog(null, "Is it AM or PM?");
-            if (Input == null) { // Check if user pressed Cancel
-                JOptionPane.showMessageDialog(null, "Action canceled. Exiting...");
-                System.exit(0); // Exit if the user pressed Cancel
-            }
-            AmPm = Input.trim().toUpperCase();
-            if (AmPm.equals("AM") || AmPm.equals("PM")) {
-                break; 
-            } else {
-                JOptionPane.showMessageDialog(null, "Invalid input. Please enter AM or PM.");
-            }
-        }
-        // Validate the time based on the time of day
-        while (true) {
-            boolean IsValid = true; 
-            if (TimeOfDay.equalsIgnoreCase("Morning")) {
-                if (AmPm.equals("PM") || Hour < 4 || Hour > 11) {
-                    IsValid = false; // Set flag to false if invalid
-                    JOptionPane.showMessageDialog(null, "Invalid input. Morning is between 4am and 11am. Please try again.");
-                }
-            } else if (TimeOfDay.equalsIgnoreCase("Afternoon")) {
-                if (AmPm.equals("AM") || Hour < 12 && Hour > 6) {
-                    IsValid = false; // Set flag to false if invalid
-                    JOptionPane.showMessageDialog(null, "Invalid input. Afternoon is between 12pm and 6pm. Please try again.");
-                }
-            } else if (TimeOfDay.equalsIgnoreCase("Night")) {
-                if ((AmPm.equals("AM") && Hour >= 4) || (AmPm.equals("PM") && Hour < 7)) {
-                    IsValid = false; // Set flag to false if invalid
-                    JOptionPane.showMessageDialog(null, "Invalid input. Night is between 7pm and 3am. Please try again.");
-                }
-            }
-            if (IsValid) {
-                break;
-            }
-            while (true) {
-                String InputHour = JOptionPane.showInputDialog(null, "Enter the specific hour (1-12) for the event:");
-                if (InputHour == null) { // Check if user pressed Cancel
-                    JOptionPane.showMessageDialog(null, "Action canceled.");
-                    System.exit(0); // Exit if the user pressed Cancel
-                }
-                Hour = Integer.parseInt(InputHour); // Parse the input to an integer
-                if (Hour >= 1 && Hour <= 12) {
-                    break; // Valid hour
-                } else {
-                    JOptionPane.showMessageDialog(null, "Invalid input. Please enter an hour between 1 and 12.");
-                }
-            }
-
-            while (true) {
-                String InputAmPm = JOptionPane.showInputDialog(null, "Is it AM or PM?");
-                if (InputAmPm == null) { // Check if user pressed Cancel
-                    JOptionPane.showMessageDialog(null, "Action canceled.");
-                    System.exit(0); // Exit if the user pressed Cancel
-                }
-                AmPm = InputAmPm.trim().toUpperCase();
-                if (AmPm.equals("AM") || AmPm.equals("PM")) {
-                    break; // Valid AM/PM
-                } else {
-                    JOptionPane.showMessageDialog(null, "Invalid input. Please enter AM or PM.");
-                }
-            }
-        }
-        return new String[] { TimeOfDay, String.valueOf(Hour), AmPm };
-    }
+				if (option == JOptionPane.YES_OPTION) { 
+					// If the user wants to see their collection
+					StringBuilder CologneDetails = new StringBuilder("Your Fragrances:\n\n");
+					for (String CologneName : CologneMap.keySet()) {
+						CologneDetails.append(CologneMap.get(CologneName).toString()).append("\n"); // Append cologne details
+					}
+					// Create a JTextArea to display the cologne details
+					JTextArea textArea = new JTextArea(CologneDetails.toString());
+					textArea.setEditable(false); // Make it non-editable
+					textArea.setLineWrap(true); // Wrap lines
+					textArea.setWrapStyleWord(true); // Wrap by words
+					// Create a JScrollPane to allow scrolling
+					JScrollPane scrollPane = new JScrollPane(textArea);
+					scrollPane.setPreferredSize(new Dimension(300, 200)); // Set preferred size for the scroll pane
+					// Show the scroll pane in a JOptionPane
+					JOptionPane.showMessageDialog(null, scrollPane, "Cologne Collection", JOptionPane.INFORMATION_MESSAGE);
+					break; // Exit the loop after displaying the collection
+				} else if (option == JOptionPane.NO_OPTION) {
+					// If the user doesn't want to see their collection
+					JOptionPane.showMessageDialog(null, "Ok, let's continue!");
+					break; // Exit the loop
+				}
+			}
+			String[] TimeDetails = GetTime(); 
+			String CologneFormality = GetFormalityCologne();
+			String[] WeatherDetails = GetWeatherDetails();
+			String CologneRecommendation = RecommendCologne(WeatherDetails[0], TimeDetails[0], CologneFormality, CologneMap);
+			JOptionPane.showMessageDialog(null, "Based on the formality, weather, and the time of the event,\n" + CologneRecommendation);
+		} else if (help.equalsIgnoreCase("Clothes")) {
+			JOptionPane.showMessageDialog(null, "Looks like you just need help with picking an outfit today!\nNo worries, I can help!");
+			while (true) {
+				// Use showOptionDialog to make a clickable option instead of text input
+				int option = JOptionPane.showOptionDialog(null, 
+						"Before we start, would you like to see your wardrobe?", 
+						"View Wardrobe Collection", 
+						JOptionPane.YES_NO_OPTION, 
+						JOptionPane.QUESTION_MESSAGE, 
+						null, 
+						new Object[] {"Yes", "No"}, 
+						"No");
+	
+				if (option == JOptionPane.YES_OPTION) {
+					// If the user wants to see their wardrobe
+					StringBuilder wardrobeDetails = new StringBuilder("Your Wardrobe:\n\n");
+					for (Map.Entry<String, Clothes> entry : ClothesMap.entrySet()) {
+						wardrobeDetails.append(entry.getKey()).append(":\n").append(entry.getValue().toString()).append("\n"); // Append clothes details
+					}
+					// Create a JTextArea to display the wardrobe details
+					JTextArea textArea = new JTextArea(wardrobeDetails.toString());
+					textArea.setEditable(false); // Make it non-editable
+					textArea.setLineWrap(true); // Wrap lines
+					textArea.setWrapStyleWord(true); // Wrap by words
+					// Create a JScrollPane to allow scrolling
+					JScrollPane scrollPane = new JScrollPane(textArea);
+					scrollPane.setPreferredSize(new Dimension(300, 200)); // Set preferred size for the scroll pane
+					// Show the scroll pane in a JOptionPane
+					JOptionPane.showMessageDialog(null, scrollPane, "Wardrobe Collection", JOptionPane.INFORMATION_MESSAGE);
+					break; // Exit the loop after displaying the collection
+				} else if (option == JOptionPane.NO_OPTION) {
+					// If the user does not want to see their wardrobe
+					JOptionPane.showMessageDialog(null, "Ok, let's continue!");
+					break; // Exit the loop
+				}
+			}
+			String[] TimeDetails = GetTime();
+			JOptionPane.showMessageDialog(null, "Thank you! Your event is at " + TimeDetails[1] + " " + TimeDetails[2] + " in the " + TimeDetails[0] + ".");
+			String FormalityLevel = GetFormalityClothes();
+			String[] WeatherDetails = GetWeatherDetails();
+			// Get recommendations
+			String ClothingRecommendation = RecommendClothing(WeatherDetails[0], 0, TimeDetails[0], FormalityLevel, ClothesMap);
+			String Message = "Based on the formality, weather, and the time of the event:\n" +  "Recommended clothing: " + ClothingRecommendation;
+			JOptionPane.showMessageDialog(null, Message, "Clothing Recommendation", JOptionPane.INFORMATION_MESSAGE);
+		} else if (help.equalsIgnoreCase("Both")) {
+			JOptionPane.showMessageDialog(null, "Seems like you need help with both an outfit and a fragrance\nI can help with that!"); 
+			// Display wardrobe
+			while (true) {
+				// Use showOptionDialog to make a clickable option instead of text input
+				int option = JOptionPane.showOptionDialog(null, 
+						"Before we start, would you like to see your wardrobe?\nIncluding your fragrances?", 
+						"View Wardrobe and Cologne Collection", 
+						JOptionPane.YES_NO_OPTION, 
+						JOptionPane.QUESTION_MESSAGE, 
+						null, 
+						new Object[] {"Yes", "No"}, 
+						"No");
+	
+				if (option == JOptionPane.YES_OPTION) {
+					// If the user wants to see their collection
+					StringBuilder cologneDetails = new StringBuilder("Your Fragrances:\n\n");
+					for (String cologneName : CologneMap.keySet()) {
+						cologneDetails.append(CologneMap.get(cologneName).toString()).append("\n"); // Append cologne details
+					}
+					// Create a JTextArea to display the cologne details
+					JTextArea textArea = new JTextArea(cologneDetails.toString());
+					textArea.setEditable(false); // Make it non-editable
+					textArea.setLineWrap(true); // Wrap lines
+					textArea.setWrapStyleWord(true); // Wrap by words
+					// Create a JScrollPane to allow scrolling
+					JScrollPane scrollPane = new JScrollPane(textArea);
+					scrollPane.setPreferredSize(new Dimension(300, 200)); // Set preferred size for the scroll pane
+					// Show the scroll pane in a JOptionPane
+					JOptionPane.showMessageDialog(null, scrollPane, "Cologne Collection", JOptionPane.INFORMATION_MESSAGE);
+					break; // Exit the loop after displaying the collection
+				} else if (option == JOptionPane.NO_OPTION) {
+					JOptionPane.showMessageDialog(null, "Ok, let's continue!");
+					break; 
+				}
+			}
+			if (Answer.equalsIgnoreCase("YES")) {
+				// Display wardrobe collection
+				StringBuilder wardrobeDetails = new StringBuilder("Your Wardrobe:\n\n");
+				for (Map.Entry<String, Clothes> entry : ClothesMap.entrySet()) {
+					wardrobeDetails.append(entry.getKey()).append(":\n").append(entry.getValue().toString()).append("\n"); // Append clothes details
+				}
+				// Create a JTextArea to display the wardrobe details
+				JTextArea wardrobeTextArea = new JTextArea(wardrobeDetails.toString());
+				wardrobeTextArea.setEditable(false); // Make it non-editable
+				wardrobeTextArea.setLineWrap(true); // Wrap lines
+				wardrobeTextArea.setWrapStyleWord(true); // Wrap by words
+				// Create a JScrollPane to allow scrolling
+				JScrollPane wardrobeScrollPane = new JScrollPane(wardrobeTextArea);
+				wardrobeScrollPane.setPreferredSize(new Dimension(300, 200)); // Set preferred size for the scroll pane
+				// Show the scroll pane in a JOptionPane
+				JOptionPane.showMessageDialog(null, wardrobeScrollPane, "Wardrobe Collection", JOptionPane.INFORMATION_MESSAGE);
+			}
+	
+			String[] TimeDetails = GetTime();
+			JOptionPane.showMessageDialog(null, "Thank you! Your event is at " + TimeDetails[1] + " " + TimeDetails[2] + " in the " + TimeDetails[0] + ".");
+			
+			String CologneFormality = GetFormalityCologne();
+			String FormalityLevel = GetFormalityClothes();
+			String[] WeatherDetails = GetWeatherDetails();
+			String CologneRecommendation = RecommendCologne(WeatherDetails[0], TimeDetails[0], CologneFormality, CologneMap);
+			String ClothingRecommendation = RecommendClothing(WeatherDetails[0], 0, TimeDetails[0], FormalityLevel, ClothesMap);
+			JOptionPane.showMessageDialog(null, "Based on the formality, weather, and the time of the event,\n" + CologneRecommendation);
+			JOptionPane.showMessageDialog(null, "Based on the formality, weather, and the time of the event,\n" + ClothingRecommendation);
+		}
+	}		
+	private static String[] GetTime() {
+		String TimeOfDay;
+		String AmPm;
+		int Hour = 0; // Initialize hour
+	
+		// Loop until the user selects a valid time of day
+		while (true) {
+			String[] options = {"Morning", "Afternoon", "Night"};
+			int option = JOptionPane.showOptionDialog(null, 
+					"What time of day will this event be?\n" +
+					"The options are: Morning (4am-11am), Afternoon (12pm-6pm), Night (7pm-3am)", 
+					"Select Time of Day", 
+					JOptionPane.DEFAULT_OPTION, 
+					JOptionPane.QUESTION_MESSAGE, 
+					null, 
+					options, 
+					options[0]);
+	
+			if (option == JOptionPane.CLOSED_OPTION) { // If user presses Cancel
+				JOptionPane.showMessageDialog(null, "Action canceled.");
+				System.exit(0); // Exit if the user pressed Cancel
+			}
+	
+			TimeOfDay = options[option].trim();
+	
+			// Validate the selected time of day
+			if (TimeOfDay.equalsIgnoreCase("Morning") || TimeOfDay.equalsIgnoreCase("Afternoon") || TimeOfDay.equalsIgnoreCase("Night")) {
+				break; 
+			} else {
+				JOptionPane.showMessageDialog(null, "Invalid input. Please select Morning, Afternoon, or Night.");
+			}
+		}
+	
+		// Loop until the user selects a valid hour
+		while (true) {
+			String InputHour = JOptionPane.showInputDialog(null, "Enter the specific hour (1-12) for the event:");
+			if (InputHour == null) { // Check if user pressed Cancel
+				JOptionPane.showMessageDialog(null, "Action canceled.");
+				System.exit(0); // Exit if the user pressed Cancel
+			}
+	
+			Hour = Integer.parseInt(InputHour); // Parse the input to an integer
+			if (Hour >= 1 && Hour <= 12) {
+				break; // Valid hour
+			} else {
+				JOptionPane.showMessageDialog(null, "Invalid input. Please enter an hour between 1 and 12.");
+			}
+		}
+	
+		// Loop until the user selects AM or PM
+		while (true) {
+			String[] ampmOptions = {"AM", "PM"};
+			int ampmChoice = JOptionPane.showOptionDialog(null, 
+					"Is it AM or PM?", 
+					"Select AM/PM", 
+					JOptionPane.DEFAULT_OPTION, 
+					JOptionPane.QUESTION_MESSAGE, 
+					null, 
+					ampmOptions, 
+					ampmOptions[0]);
+	
+			if (ampmChoice == JOptionPane.CLOSED_OPTION) { // Check if user pressed Cancel
+				JOptionPane.showMessageDialog(null, "Action canceled. Exiting...");
+				System.exit(0); // Exit if the user pressed Cancel
+			}
+	
+			AmPm = ampmOptions[ampmChoice].trim().toUpperCase();
+	
+			// Validate AM or PM input
+			if (AmPm.equals("AM") || AmPm.equals("PM")) {
+				break;
+			} else {
+				JOptionPane.showMessageDialog(null, "Invalid input. Please select AM or PM.");
+			}
+		}
+	
+		// Validate the time based on the time of day
+		while (true) {
+			boolean IsValid = true;
+			if (TimeOfDay.equalsIgnoreCase("Morning")) {
+				if (AmPm.equals("PM") || Hour < 4 || Hour > 11) {
+					IsValid = false; // Set flag to false if invalid
+					JOptionPane.showMessageDialog(null, "Invalid input. Morning is between 4am and 11am. Please try again.");
+				}
+			} else if (TimeOfDay.equalsIgnoreCase("Afternoon")) {
+				if (AmPm.equals("AM") || Hour < 12 || Hour > 6) {
+					IsValid = false; // Set flag to false if invalid
+					JOptionPane.showMessageDialog(null, "Invalid input. Afternoon is between 12pm and 6pm. Please try again.");
+				}
+			} else if (TimeOfDay.equalsIgnoreCase("Night")) {
+				if ((AmPm.equals("AM") && Hour >= 4) || (AmPm.equals("PM") && Hour < 7)) {
+					IsValid = false; // Set flag to false if invalid
+					JOptionPane.showMessageDialog(null, "Invalid input. Night is between 7pm and 3am. Please try again.");
+				}
+			}
+	
+			if (IsValid) {
+				break;
+			}
+			// Prompt user to re-enter the time
+			String InputHour = JOptionPane.showInputDialog(null, "Enter the specific hour (1-12) for the event:");
+			if (InputHour == null) { // Check if user pressed Cancel
+				JOptionPane.showMessageDialog(null, "Action canceled.");
+				System.exit(0); // Exit if the user pressed Cancel
+			}
+			Hour = Integer.parseInt(InputHour); // Parse the input to an integer
+	
+			// Check if the hour is valid
+			while (true) {
+				if (Hour >= 1 && Hour <= 12) {
+					break; // Valid hour
+				} else {
+					JOptionPane.showMessageDialog(null, "Invalid input. Please enter an hour between 1 and 12.");
+				}
+			}
+	
+			String[] ampmOptionsReenter = {"AM", "PM"};
+			int ampmChoiceReenter = JOptionPane.showOptionDialog(null, 
+					"Is it AM or PM?", 
+					"Select AM/PM", 
+					JOptionPane.DEFAULT_OPTION, 
+					JOptionPane.QUESTION_MESSAGE, 
+					null, 
+					ampmOptionsReenter, 
+					ampmOptionsReenter[0]);
+	
+			if (ampmChoiceReenter == JOptionPane.CLOSED_OPTION) { // Check if user pressed Cancel
+				JOptionPane.showMessageDialog(null, "Action canceled.");
+				System.exit(0); // Exit if the user pressed Cancel
+			}
+	
+			AmPm = ampmOptionsReenter[ampmChoiceReenter].trim().toUpperCase();
+		}
+	
+		return new String[] { TimeOfDay, String.valueOf(Hour), AmPm };
+	}		
     //Method to Get Cologne Formality.
     private static String GetFormalityCologne(){
     	String Helper;
