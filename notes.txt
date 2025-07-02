@@ -1,0 +1,31 @@
+1. Java crud API using Spring Boot
+2. Intergrate with free weather API + geolocation
+3. Run on AWS CLOUD/ANY Free cloud 
+4. Containterize/dockerize
+5. SQL Database
+
+
+
+
+things to learn
+
+- Databases/ SQL 101(first: should take 2-3 days to learn)
+- Cloud (AWS, GCP)(second 2-3 days)
+- docker (3-4 days)
+
+
+python version
+
+******** SAMPLE PYTHON CRUD API *************(1 week)
+
+
+    1. API / Backend for recommendations
+        - Integrate with db (CRUD)
+        - Expose API Endpoint.
+            example: http://recommendations/myrec.
+    
+    2. Seperate front end / UI / Website. (Java script)
+
+    after i finish api stuff then move on to cloud stuff
+
+    linkien learning**
