@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-public class Recommendation_Only_Methods { //fix time
+public class Recommendation_Only_Methods { //test all times to make sure it works
     public static void main(String[] args) { 
 		String Name; //name of the user.
 		String Help = null; // What the user wants help with
